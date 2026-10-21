@@ -1,0 +1,27 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "bash scripts/vercel-build.sh",
+  "crons": [
+    {
+      "path": "/api/cron/release-reservations",
+      "schedule": "10 2 * * *"
+    },
+    {
+      "path": "/api/cron/sync-fulfillment",
+      "schedule": "20 6 * * *"
+    },
+    {
+      "path": "/api/cron/sync-inventory",
+      "schedule": "40 5 * * *"
+    },
+    {
+      "path": "/api/cron/low-stock",
+      "schedule": "0 7 * * *"
+    },
+    {
+      "path": "/api/cron/retention",
+      "schedule": "0 3 * * *"
+    }
+  ],
+  "framework": "nextjs"
+}
