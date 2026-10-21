@@ -48,3 +48,6 @@ next-env.d.ts
 !.env.example
 !.env.test
 !.env.e2e
+
+# local source backups
+*.tar.gz
