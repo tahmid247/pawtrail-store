@@ -26,16 +26,33 @@ export function extraTrustedOrigins(): string[] {
  */
 export function resolveAuthSecret(): string | undefined {
   if (process.env.BETTER_AUTH_SECRET) return process.env.BETTER_AUTH_SECRET;
-  const db = process.env.DATABASE_URL;
+  const db = rawDatabaseUrl();
   if (db) return createHash("sha256").update(`wanderpaw-auth:${db}`).digest("base64url");
   // Lets `next build` succeed before a database is attached; no sessions can exist without a database.
   if (process.env.NEXT_PHASE === "phase-production-build") return "build-phase-placeholder-secret-0000000000000000";
   return undefined;
 }
 
+/** Names under which hosting integrations (Vercel Postgres / Neon, Supabase) expose the connection string. */
+export const DATABASE_URL_CANDIDATES = [
+  "DATABASE_URL",
+  "POSTGRES_PRISMA_URL",
+  "POSTGRES_URL",
+  "STORAGE_DATABASE_URL",
+  "STORAGE_URL",
+  "NEON_DATABASE_URL",
+] as const;
+
+export function rawDatabaseUrl(): string | undefined {
+  for (const name of DATABASE_URL_CANDIDATES) if (process.env[name]) return process.env[name];
+  // Integrations created with a custom prefix expose e.g. MYDB_DATABASE_URL.
+  const prefixed = Object.keys(process.env).find((k) => /_DATABASE_URL$/.test(k) && !/UNPOOLED/.test(k));
+  return prefixed ? process.env[prefixed] : undefined;
+}
+
 /** Prisma needs `pgbouncer=true` when connecting through a transaction-mode pooler (e.g. Neon "-pooler" hosts). */
 export function resolveDatabaseUrl(): string | undefined {
-  const url = process.env.DATABASE_URL;
+  const url = rawDatabaseUrl();
   if (!url) return undefined;
   if (url.includes("-pooler.") && !url.includes("pgbouncer=")) return `${url}${url.includes("?") ? "&" : "?"}pgbouncer=true`;
   return url;
