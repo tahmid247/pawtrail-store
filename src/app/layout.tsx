@@ -24,6 +24,9 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+// Pages depend on live store settings, cart and session: always render on request.
+export const dynamic = "force-dynamic";
+
 export const viewport: Viewport = { themeColor: "#7047EB", width: "device-width", initialScale: 1 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

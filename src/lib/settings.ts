@@ -177,7 +177,13 @@ export const defaultSettings: StoreSettings = {
 
 /** Loads all settings, merging stored values over defaults section by section. */
 export const getSettings = cache(async (): Promise<StoreSettings> => {
-  const rows = await prisma.storeSetting.findMany();
+  let rows: { key: string; value: unknown }[];
+  try {
+    rows = await prisma.storeSetting.findMany();
+  } catch (err) {
+    console.error("[settings] database unavailable, using defaults:", err instanceof Error ? err.message.split("\n")[0] : err);
+    return defaultSettings;
+  }
   const merged: Record<string, unknown> = structuredClone(defaultSettings);
   for (const row of rows) {
     if (!(row.key in defaultSettings)) continue;

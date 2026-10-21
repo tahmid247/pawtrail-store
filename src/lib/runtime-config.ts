@@ -27,7 +27,10 @@ export function extraTrustedOrigins(): string[] {
 export function resolveAuthSecret(): string | undefined {
   if (process.env.BETTER_AUTH_SECRET) return process.env.BETTER_AUTH_SECRET;
   const db = process.env.DATABASE_URL;
-  return db ? createHash("sha256").update(`wanderpaw-auth:${db}`).digest("base64url") : undefined;
+  if (db) return createHash("sha256").update(`wanderpaw-auth:${db}`).digest("base64url");
+  // Lets `next build` succeed before a database is attached; no sessions can exist without a database.
+  if (process.env.NEXT_PHASE === "phase-production-build") return "build-phase-placeholder-secret-0000000000000000";
+  return undefined;
 }
 
 /** Prisma needs `pgbouncer=true` when connecting through a transaction-mode pooler (e.g. Neon "-pooler" hosts). */
