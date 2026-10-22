@@ -23,8 +23,25 @@ export async function GET() {
     }
   }
   const ok = database.reachable && database.tables;
+
+  // Payment configuration: only presence and mode are reported, never key values.
+  const secretKey = process.env.STRIPE_SECRET_KEY ?? "";
+  let lastStripeWebhook: { type: string; status: string; at: string } | null = null;
+  if (database.tables) {
+    const w = await prisma.webhookEvent.findFirst({ where: { provider: "stripe" }, orderBy: { receivedAt: "desc" } }).catch(() => null);
+    if (w) lastStripeWebhook = { type: w.type, status: w.status, at: w.receivedAt.toISOString() };
+  }
+  const stripe = {
+    secretKeySet: Boolean(secretKey),
+    mode: secretKey.startsWith("sk_live_") || secretKey.startsWith("rk_live_") ? "live" : secretKey ? "test" : null,
+    keyLooksValid: !secretKey || /^(sk|rk)_(test|live)_/.test(secretKey),
+    webhookSecretSet: Boolean(process.env.STRIPE_WEBHOOK_SECRET),
+    webhookSecretLooksValid: !process.env.STRIPE_WEBHOOK_SECRET || process.env.STRIPE_WEBHOOK_SECRET.startsWith("whsec_"),
+    lastWebhook: lastStripeWebhook,
+  };
+
   return NextResponse.json(
-    { ok, databaseUrlFound: Boolean(url), envVarsPresent: configured, database },
+    { ok, databaseUrlFound: Boolean(url), envVarsPresent: configured, database, stripe },
     { status: ok ? 200 : 503, headers: { "Cache-Control": "no-store" } },
   );
 }
