@@ -18,7 +18,7 @@ export function CartLineControls({ variantId, quantity, max }: { variantId: stri
     <div className="mt-auto flex items-center justify-between pt-3">
       <div className="flex items-center rounded-full border border-line" role="group" aria-label="Quantity">
         <button className="rounded-full p-2 hover:bg-lavender-pale disabled:opacity-40" onClick={() => set(quantity - 1)} disabled={pending || quantity <= 1} aria-label="Decrease quantity"><Minus className="size-4" /></button>
-        <span className="w-8 text-center text-sm font-semibold tabular-nums">{quantity}</span>
+        <span translate="no" className="w-8 text-center text-sm font-semibold tabular-nums">{quantity}</span>
         <button className="rounded-full p-2 hover:bg-lavender-pale disabled:opacity-40" onClick={() => set(quantity + 1)} disabled={pending || quantity >= max} aria-label="Increase quantity"><Plus className="size-4" /></button>
       </div>
       {error && <span className="text-xs text-danger" role="alert">{error}</span>}

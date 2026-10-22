@@ -61,7 +61,7 @@ export function ProductPurchase({
   return (
     <div>
       <p className="font-display text-3xl font-bold text-ink" aria-live="polite">
-        {formatMoney(variant.priceCents, variant.currency)}
+        <span translate="no">{formatMoney(variant.priceCents, variant.currency)}</span>
         <span className="ml-2 align-middle text-sm font-medium text-muted">incl. VAT</span>
       </p>
 
@@ -100,7 +100,7 @@ export function ProductPurchase({
         {soldOut ? (
           <span className="text-danger">Out of stock</span>
         ) : variant.available <= 5 ? (
-          <span className="text-ink">In stock — {variant.available} available</span>
+          <span key={variant.id} className="text-ink">In stock — <span translate="no">{variant.available}</span> available</span>
         ) : (
           <span className="text-success">In stock, ready to ship</span>
         )}
@@ -111,7 +111,7 @@ export function ProductPurchase({
           <button type="button" onClick={() => setQty((q) => Math.max(1, q - 1))} disabled={qty <= 1 || soldOut} className="rounded-full p-2 hover:bg-lavender-pale disabled:opacity-40" aria-label="Decrease quantity">
             <Minus className="size-4" />
           </button>
-          <span className="min-w-8 text-center font-semibold tabular-nums" aria-live="polite" aria-label={`Quantity ${qty}`}>{qty}</span>
+          <span translate="no" className="min-w-8 text-center font-semibold tabular-nums" aria-live="polite" aria-label={`Quantity ${qty}`}>{qty}</span>
           <button type="button" onClick={() => setQty((q) => Math.min(max, q + 1))} disabled={qty >= max || soldOut} className="rounded-full p-2 hover:bg-lavender-pale disabled:opacity-40" aria-label="Increase quantity">
             <Plus className="size-4" />
           </button>
@@ -146,7 +146,7 @@ export function ProductPurchase({
           <div className="mx-auto flex max-w-xl items-center gap-3">
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-semibold">{productTitle}</p>
-              <p className="text-sm text-muted">{variant.title} · <span className="font-bold text-ink">{formatMoney(variant.priceCents, variant.currency)}</span></p>
+              <p className="text-sm text-muted">{variant.title} · <span translate="no" className="font-bold text-ink">{formatMoney(variant.priceCents, variant.currency)}</span></p>
             </div>
             <Button disabled={soldOut || pending} onClick={() => submit(false)}>{soldOut ? "Sold out" : "Add to Cart"}</Button>
           </div>

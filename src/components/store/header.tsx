@@ -42,7 +42,7 @@ export async function Header() {
           <Link href="/cart" className="relative inline-flex rounded-full p-2.5 text-white/85 transition hover:bg-white/10 hover:text-white" aria-label={`Shopping cart, ${count} item${count === 1 ? "" : "s"}`}>
             <ShoppingBag className="size-5" />
             {count > 0 && (
-              <span className="absolute -right-0.5 -top-0.5 flex min-w-5 items-center justify-center rounded-full bg-glow px-1 text-[0.7rem] font-bold leading-5 text-night" aria-hidden>
+              <span className="absolute -right-0.5 -top-0.5 flex min-w-5 items-center justify-center rounded-full bg-glow px-1 text-[0.7rem] font-bold leading-5 text-night" aria-hidden translate="no">
                 {count}
               </span>
             )}

@@ -29,7 +29,7 @@ export function Logo({ name, logoUrl, tone = "light" }: { name: string; logoUrl:
       ) : (
         <>
           <LogoMark />
-          <span className={`font-display text-lg font-extrabold tracking-tight ${tone === "dark" ? "text-white" : "text-ink"}`}>{name}</span>
+          <span translate="no" className={`font-display text-lg font-extrabold tracking-tight ${tone === "dark" ? "text-white" : "text-ink"}`}>{name}</span>
         </>
       )}
     </Link>

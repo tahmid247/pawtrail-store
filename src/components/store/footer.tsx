@@ -20,7 +20,7 @@ export async function Footer() {
         <div className="col-span-2 lg:col-span-3">
           <div className="flex items-center gap-2.5">
             <LogoMark />
-            <span className="font-display text-lg font-extrabold text-white">{s.brand.name}</span>
+            <span translate="no" className="font-display text-lg font-extrabold text-white">{s.brand.name}</span>
           </div>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/65">{s.brand.tagline}</p>
           {socials.length > 0 && (
