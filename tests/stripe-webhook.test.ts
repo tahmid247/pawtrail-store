@@ -73,3 +73,26 @@ describe("Stripe webhook", () => {
     expect((await prisma.order.findUniqueOrThrow({ where: { id: order.id } })).status).toBe("CANCELLED");
   });
 });
+
+describe("Stripe refunds via webhook", () => {
+  it("records a dashboard refund delivered as charge.refund.updated, and accepts a re-send of an ignored event", async () => {
+    const { order } = await setup();
+    await POST(signedRequest(completed(order.id, order.totalCents)));
+    const refundEvent = (id: string) => ({
+      id,
+      object: "event",
+      type: "charge.refund.updated",
+      data: { object: { id: "re_test_1", object: "refund", amount: order.totalCents, status: "succeeded", payment_intent: "pi_test_1", metadata: {} } },
+    });
+    // simulate the event having been ignored by an older version
+    await prisma.webhookEvent.create({ data: { provider: "stripe", eventId: "evt_ref", type: "charge.refund.updated", status: "ignored" } });
+    const res = await POST(signedRequest(refundEvent("evt_ref")));
+    expect(await res.json()).toMatchObject({ result: "processed" });
+    const o = await prisma.order.findUniqueOrThrow({ where: { id: order.id } });
+    expect(o.paymentStatus).toBe("REFUNDED");
+    expect(o.refundedCents).toBe(order.totalCents);
+    // a second delivery is a duplicate and does not double-refund
+    expect(await (await POST(signedRequest(refundEvent("evt_ref")))).json()).toMatchObject({ result: "duplicate" });
+    expect(await prisma.refund.count()).toBe(1);
+  });
+});

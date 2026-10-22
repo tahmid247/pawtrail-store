@@ -54,7 +54,7 @@ export async function handleStripeEvent(event: Stripe.Event): Promise<"processed
   const existing = await prisma.webhookEvent.findUnique({
     where: { provider_eventId: { provider: "stripe", eventId: event.id } },
   });
-  if (existing?.status === "processed" || existing?.status === "ignored") return "duplicate";
+  if (existing?.status === "processed") return "duplicate";
   if (!existing) {
     try {
       await prisma.webhookEvent.create({ data: { provider: "stripe", eventId: event.id, type: event.type } });
@@ -86,7 +86,9 @@ export async function handleStripeEvent(event: Stripe.Event): Promise<"processed
         break;
       }
       case "refund.created":
-      case "refund.updated": {
+      case "refund.updated":
+      // Same Refund object, delivered under this name when the destination subscribes to charge refund events.
+      case "charge.refund.updated": {
         const r = event.data.object;
         const localId = r.metadata?.localRefundId;
         const local =
