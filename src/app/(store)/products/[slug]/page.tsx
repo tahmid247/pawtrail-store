@@ -124,7 +124,7 @@ export default async function ProductPage({ params }: Props) {
         <ProductGallery images={product.images} />
         <div>
           {product.category && <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">{product.category}</p>}
-          <h1 className="mt-3 text-3xl font-extrabold sm:text-4xl">{product.title}</h1>
+          <h1 className="mt-3 text-3xl font-semibold sm:text-4xl">{product.title}</h1>
           {product.subtitle && <p className="mt-3 text-lg text-muted">{product.subtitle}</p>}
           {summary.count > 0 && (
             <a href="#reviews" className="mt-4 inline-flex items-center gap-2 text-sm text-muted hover:text-primary">

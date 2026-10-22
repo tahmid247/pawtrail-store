@@ -33,7 +33,7 @@ export default async function SuccessPage({ searchParams }: { searchParams: Prom
   return (
     <Container className="max-w-2xl py-20 text-center">
       {paid ? <CheckCircle2 className="mx-auto size-14 text-success" aria-hidden /> : <Clock className="mx-auto size-14 text-primary" aria-hidden />}
-      <h1 className="mt-6 text-3xl font-extrabold sm:text-4xl">{paid ? "Thank you for your order!" : "Confirming your payment…"}</h1>
+      <h1 className="mt-6 text-3xl font-bold sm:text-4xl">{paid ? "Thank you for your order!" : "Confirming your payment…"}</h1>
       <p className="mt-4 text-muted">
         {paid
           ? `Order ${order.number} is confirmed. A confirmation has been sent to ${order.email}.`
@@ -45,7 +45,7 @@ export default async function SuccessPage({ searchParams }: { searchParams: Prom
           {order.items.map((i) => (
             <li key={i.id} className="flex justify-between gap-4">
               <span>{i.quantity} × {i.productTitle} — {i.variantTitle}</span>
-              <span className="font-medium">{formatMoney(i.totalCents, order.currency)}</span>
+              <span className="font-bold">{formatMoney(i.totalCents, order.currency)}</span>
             </li>
           ))}
         </ul>

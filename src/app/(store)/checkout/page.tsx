@@ -34,7 +34,7 @@ export default async function CheckoutPage({ searchParams }: { searchParams: Pro
 
   return (
     <Container className="py-12 sm:py-16">
-      <h1 className="flex items-center gap-3 text-3xl font-extrabold sm:text-4xl">
+      <h1 className="flex items-center gap-3 text-3xl font-bold sm:text-4xl">
         Checkout <Lock className="size-6 text-primary" aria-label="Secure" />
       </h1>
       {!provider && <Alert tone="danger" className="mt-6">Online payments are not available yet. Please check back soon.</Alert>}
@@ -76,7 +76,7 @@ export default async function CheckoutPage({ searchParams }: { searchParams: Pro
                   <p className="text-muted">{l.variantTitle}</p>
                   {l.problem && <p className="text-danger">{l.problem}</p>}
                 </div>
-                <p className="text-sm font-semibold">{formatMoney(l.totalCents, quote.currency)}</p>
+                <p className="text-sm font-bold">{formatMoney(l.totalCents, quote.currency)}</p>
               </li>
             ))}
           </ul>

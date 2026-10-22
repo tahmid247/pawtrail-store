@@ -23,7 +23,7 @@ export function ProductCard({ product }: { product: PublicProduct }) {
             </div>
           )}
         </div>
-        <p className="shrink-0 font-semibold">
+        <p className="shrink-0 font-bold">
           {product.minPriceCents !== product.maxPriceCents && <span className="text-sm font-normal text-muted">from </span>}
           {formatMoney(product.minPriceCents, product.currency)}
         </p>

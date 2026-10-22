@@ -10,7 +10,7 @@ export default async function SecurityPage({ searchParams }: { searchParams: Pro
   const staff = user.role !== "CUSTOMER";
   return (
     <>
-      <h1 className="text-3xl font-extrabold">Security</h1>
+      <h1 className="text-3xl font-bold">Security</h1>
       {setup2fa && staff && !user.twoFactorEnabled && (
         <Alert tone="warning" className="mt-6">Two-factor authentication is required for staff accounts. Set it up below to unlock the admin dashboard.</Alert>
       )}

@@ -23,7 +23,7 @@ export default async function CartPage({ searchParams }: { searchParams: Promise
 
   return (
     <Container className="py-12 sm:py-16">
-      <h1 className="text-4xl font-extrabold">Your cart</h1>
+      <h1 className="text-4xl font-bold">Your cart</h1>
       {cancelled && <Alert tone="warning" className="mt-6">Payment was cancelled — your order {cancelled} was not placed. Your cart is still here.</Alert>}
       {items.length === 0 ? (
         <div className="mt-10 rounded-3xl bg-lavender p-12 text-center">
@@ -44,9 +44,9 @@ export default async function CartPage({ searchParams }: { searchParams: Promise
                     <div>
                       <Link href={`/products/${l.productSlug}`} className="font-semibold hover:text-primary">{l.productTitle}</Link>
                       <p className="text-sm text-muted">{l.variantTitle}</p>
-                      <p className="mt-1 text-sm text-muted">{formatMoney(l.unitPriceCents, quote.currency)} each</p>
+                      <p className="mt-1 text-sm text-muted"><span className="font-bold">{formatMoney(l.unitPriceCents, quote.currency)}</span> each</p>
                     </div>
-                    <p className="font-semibold">{formatMoney(l.totalCents, quote.currency)}</p>
+                    <p className="font-bold">{formatMoney(l.totalCents, quote.currency)}</p>
                   </div>
                   {l.problem && <p className="mt-2 text-sm font-medium text-danger" role="alert">{l.problem}</p>}
                   <CartLineControls variantId={l.variantId} quantity={l.quantity} max={Math.max(l.quantity, Math.min(l.available, 99))} />

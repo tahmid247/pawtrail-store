@@ -13,7 +13,7 @@ export default async function PrivacyPage() {
   ]);
   return (
     <>
-      <h1 className="text-3xl font-extrabold">Privacy &amp; data</h1>
+      <h1 className="text-3xl font-bold">Privacy &amp; data</h1>
       <section className="mt-8 rounded-3xl border border-line p-6">
         <h2 className="text-lg font-bold">Marketing emails</h2>
         <div className="mt-4"><MarketingForm subscribed={sub?.status === "CONFIRMED"} /></div>

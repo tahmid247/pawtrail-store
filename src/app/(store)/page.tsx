@@ -88,7 +88,7 @@ export default async function HomePage() {
             </div>
             <div data-reveal="right" className="lg:py-6">
               <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-primary">Featured</p>
-              <h2 id="featured-title" className="text-3xl font-bold sm:text-4xl">
+              <h2 id="featured-title" className="text-3xl font-semibold sm:text-4xl">
                 <Link href={`/products/${product.slug}`} className="hover:text-primary">{product.title}</Link>
               </h2>
               {product.subtitle && <p className="mt-3 text-muted">{product.subtitle}</p>}

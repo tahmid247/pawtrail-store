@@ -146,7 +146,7 @@ export function ProductPurchase({
           <div className="mx-auto flex max-w-xl items-center gap-3">
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-semibold">{productTitle}</p>
-              <p className="text-sm text-muted">{variant.title} · {formatMoney(variant.priceCents, variant.currency)}</p>
+              <p className="text-sm text-muted">{variant.title} · <span className="font-bold text-ink">{formatMoney(variant.priceCents, variant.currency)}</span></p>
             </div>
             <Button disabled={soldOut || pending} onClick={() => submit(false)}>{soldOut ? "Sold out" : "Add to Cart"}</Button>
           </div>

@@ -11,7 +11,7 @@ export default async function AddressesPage() {
   const countries = [...EU_COUNTRY_CODES, "SM", "VA"].map((code) => ({ code, name: COUNTRIES[code] })).sort((a, b) => a.name.localeCompare(b.name));
   return (
     <>
-      <h1 className="text-3xl font-extrabold">Addresses</h1>
+      <h1 className="text-3xl font-bold">Addresses</h1>
       <p className="mt-2 text-sm text-muted">Saved addresses are for your reference; you confirm the delivery address on the secure payment page.</p>
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
         {addresses.map((a) => <AddressCard key={a.id} address={a} countries={countries} />)}

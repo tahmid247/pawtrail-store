@@ -11,7 +11,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
   return (
     <Container className="grid gap-12 py-12 sm:py-16 lg:grid-cols-[1fr_1.4fr]">
       <div>
-        <h1 className="text-4xl font-extrabold">Contact us</h1>
+        <h1 className="text-4xl font-bold">Contact us</h1>
         <p className="mt-4 text-muted">Questions about an order, a return, or our products? We&apos;re here to help.</p>
         <ul className="mt-8 space-y-4 text-sm">
           <li className="flex gap-3"><Mail className="size-5 text-primary" aria-hidden /><a href={`mailto:${s.brand.supportEmail}`} className="hover:text-primary">{s.brand.supportEmail}</a></li>

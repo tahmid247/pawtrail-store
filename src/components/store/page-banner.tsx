@@ -8,7 +8,7 @@ export function PageBanner({ title, children, eyebrow }: { title: ReactNode; chi
       <div className="pointer-events-none absolute -right-24 -top-32 size-96 rounded-full bg-glow/25 blur-3xl" aria-hidden />
       <Container className="relative py-12 sm:py-16">
         {eyebrow && <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-glow">{eyebrow}</p>}
-        <h1 className="text-4xl font-extrabold sm:text-5xl">{title}</h1>
+        <h1 className="text-4xl font-bold sm:text-5xl">{title}</h1>
         {children && <div className="mt-4 text-white/75">{children}</div>}
       </Container>
     </section>

@@ -32,7 +32,7 @@ export function OrderDetail({ order, showAddress = true }: { order: FullOrder; s
   return (
     <div className="space-y-8">
       <div className="flex flex-wrap items-center gap-3">
-        <h1 className="text-2xl font-extrabold sm:text-3xl">Order {order.number}</h1>
+        <h1 className="text-2xl font-bold sm:text-3xl">Order {order.number}</h1>
         <OrderStatusBadge order={order} />
       </div>
       <p className="text-sm text-muted">Placed {order.placedAt.toLocaleString("en-GB", { dateStyle: "long", timeStyle: "short" })}</p>
@@ -85,7 +85,7 @@ export function OrderDetail({ order, showAddress = true }: { order: FullOrder; s
                 <p className="font-semibold">{i.productTitle}</p>
                 <p className="text-muted">{i.variantTitle} · Qty {i.quantity}</p>
               </div>
-              <p className="text-sm font-semibold">{formatMoney(i.totalCents, order.currency)}</p>
+              <p className="text-sm font-bold">{formatMoney(i.totalCents, order.currency)}</p>
             </li>
           ))}
         </ul>

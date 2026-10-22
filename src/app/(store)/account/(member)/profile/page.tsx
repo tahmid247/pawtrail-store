@@ -9,7 +9,7 @@ export default async function ProfilePage() {
   const profile = await prisma.customerProfile.findUnique({ where: { userId: user.id } });
   return (
     <>
-      <h1 className="mb-8 text-3xl font-extrabold">Profile</h1>
+      <h1 className="mb-8 text-3xl font-bold">Profile</h1>
       <ProfileForm name={user.name} email={user.email} phone={profile?.phone ?? ""} />
     </>
   );

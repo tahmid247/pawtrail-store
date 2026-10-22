@@ -12,7 +12,7 @@ export default async function AboutPage() {
     <Container className="grid items-center gap-12 py-12 sm:py-20 lg:grid-cols-2">
       <div>
         <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">About {s.brand.name}</p>
-        <h1 className="mt-3 text-4xl font-extrabold">{s.home.aboutTitle}</h1>
+        <h1 className="mt-3 text-4xl font-bold">{s.home.aboutTitle}</h1>
         <div className="mt-6 space-y-4 leading-relaxed text-[#4a4357]">
           {s.home.aboutBody.split(/\n{2,}/).map((p, i) => <p key={i}>{p}</p>)}
         </div>
