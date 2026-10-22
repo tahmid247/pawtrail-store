@@ -120,7 +120,7 @@ export default async function HomePage() {
       )}
 
       {/* Why pet owners love it */}
-      <section id="features" className="scroll-mt-24 bg-lavender py-20 sm:py-28">
+      <section id="features" className="on-lilac scroll-mt-24 bg-lilac py-20 sm:py-28">
         <Container>
           <SectionHeading eyebrow="Why pet owners love it" title="Everything your pet needs on the go, in one hand" description="Designed around the small, everyday moments of being out with your pet." />
           <ul data-reveal-stagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -176,7 +176,7 @@ export default async function HomePage() {
       )}
 
       {/* Reviews */}
-      <section className="bg-lavender py-20 sm:py-28" aria-labelledby="reviews-title">
+      <section className="on-lilac bg-lilac py-20 sm:py-28" aria-labelledby="reviews-title">
         <Container>
           <SectionHeading eyebrow="Customer reviews" title={<span id="reviews-title">What customers say</span>} />
           {reviews.length > 0 ? (

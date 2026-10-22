@@ -26,7 +26,7 @@ export default async function CartPage({ searchParams }: { searchParams: Promise
       <h1 className="text-4xl font-bold">Your cart</h1>
       {cancelled && <Alert tone="warning" className="mt-6">Payment was cancelled — your order {cancelled} was not placed. Your cart is still here.</Alert>}
       {items.length === 0 ? (
-        <div className="mt-10 rounded-3xl bg-lavender p-12 text-center">
+        <div className="mt-10 rounded-3xl bg-white p-12 text-center shadow-soft">
           <ShoppingBag className="mx-auto size-10 text-primary" aria-hidden />
           <p className="mt-4 text-lg font-semibold">Your cart is empty</p>
           <ButtonLink href="/shop" className="mt-6">Continue shopping</ButtonLink>

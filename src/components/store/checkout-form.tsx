@@ -75,7 +75,7 @@ export function CheckoutForm(props: {
 
       <section className="space-y-4">
         <h2 className="text-lg font-bold">3. Review &amp; pay</h2>
-        <div className="rounded-2xl bg-lavender p-4 text-sm leading-relaxed text-[#4a4357]">
+        <div className="rounded-2xl bg-white p-4 text-sm leading-relaxed shadow-soft text-[#4a4357]">
           <p><strong>Seller:</strong> {props.seller}</p>
           <p className="mt-2">
             You have a {props.withdrawalDays}-day right of withdrawal from delivery (see <Link href="/legal/returns" className="text-primary underline">Returns &amp; Refunds</Link>). Products are covered by the 2-year legal guarantee of conformity. Orders are shipped by our logistics partner.

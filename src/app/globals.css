@@ -16,8 +16,10 @@
   /* Deepest violet for dark sections, and a luminous violet for accents on dark backgrounds */
   --color-night: color-mix(in oklab, var(--brand-primary-deep) 58%, #0a0320);
   --color-glow: color-mix(in oklab, var(--brand-primary) 55%, #ffffff);
+  /* Band colour one step deeper than the lavender page background */
+  --color-lilac: color-mix(in oklab, var(--brand-lavender) 62%, var(--brand-primary));
   --color-ink: #211b30;
-  --color-muted: #756f80;
+  --color-muted: #574f68;
   --color-line: #e7e2f0;
   --color-success: #23865a;
   --color-danger: #b42318;
@@ -44,7 +46,12 @@ html {
 }
 
 body {
-  background: var(--brand-lavender-pale);
+  background:
+    radial-gradient(70rem 40rem at 105% -10%, color-mix(in oklab, var(--brand-primary) 22%, transparent), transparent 70%),
+    radial-gradient(60rem 40rem at -10% 60%, color-mix(in oklab, var(--brand-primary) 14%, transparent), transparent 70%),
+    linear-gradient(180deg, color-mix(in oklab, var(--brand-lavender) 86%, var(--brand-primary)) 0%, color-mix(in oklab, var(--brand-lavender) 76%, var(--brand-primary)) 100%);
+  background-attachment: fixed;
+  background-color: color-mix(in oklab, var(--brand-lavender) 82%, var(--brand-primary));
   color: var(--color-ink);
   font-family: var(--font-sans);
   font-weight: 400;
@@ -87,24 +94,32 @@ p { text-wrap: pretty; }
 .prose-store a { color: var(--brand-primary); text-decoration: underline; text-underline-offset: 3px; }
 .prose-store blockquote { border-left: 3px solid var(--brand-primary); background: var(--brand-lavender-pale); padding: 0.75rem 1rem; border-radius: 0 12px 12px 0; margin: 0 0 1.5rem; font-size: 0.925rem; }
 
+/* Muted text on the deeper lilac bands is darkened to keep WCAG AA contrast */
+.on-lilac .text-muted { color: rgb(33 27 48 / 0.8); }
+.on-lilac .text-primary { color: var(--brand-primary-deep); }
+
 /* ── Scroll reveal (see components/store/scroll-reveal.tsx) ─────────────── */
 .js-reveal [data-reveal] {
   opacity: 0;
-  transform: translate3d(0, 28px, 0);
+  transform: translate3d(0, 56px, 0) scale(0.97);
 }
-.js-reveal [data-reveal="fade"] { transform: none; }
-.js-reveal [data-reveal="left"] { transform: translate3d(-36px, 0, 0); }
-.js-reveal [data-reveal="right"] { transform: translate3d(36px, 0, 0); }
-.js-reveal [data-reveal="scale"] { transform: scale(0.94); }
+.js-reveal [data-reveal="fade"] { transform: translate3d(0, 24px, 0); }
+.js-reveal [data-reveal="left"] { transform: translate3d(-72px, 0, 0); }
+.js-reveal [data-reveal="right"] { transform: translate3d(72px, 0, 0); }
+.js-reveal [data-reveal="scale"] { transform: scale(0.88); }
 /* Only the entrance animates; hiding before the first reveal is instant. */
 .js-reveal [data-reveal].is-visible {
   opacity: 1;
   transform: none;
   transition:
-    opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0ms),
-    transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0ms);
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
 }
 
+/* Reduced motion: no movement, just a soft fade (exempt from the global reduced-motion rule above). */
 @media (prefers-reduced-motion: reduce) {
-  .js-reveal [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .js-reveal [data-reveal] { transform: none !important; }
+  .js-reveal [data-reveal].is-visible {
+    transition: opacity 0.8s ease var(--reveal-delay, 0ms) !important;
+  }
 }

@@ -10,14 +10,15 @@ const MAX_STAGGER_MS = 540;
  * Children of a `data-reveal-stagger` container reveal one after another.
  *
  * Progressive enhancement: content is fully visible until this runs (the `js-reveal` class gates the
- * hidden state), elements already on screen are shown instantly, and reduced-motion users get no animation.
+ * hidden state) and elements already on screen are shown instantly. Reduced-motion users get a fade
+ * without movement (handled in CSS).
  */
 export function ScrollReveal() {
   const pathname = usePathname();
 
   useEffect(() => {
     const root = document.documentElement;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
+    if (!("IntersectionObserver" in window)) {
       root.classList.remove("js-reveal");
       return;
     }
@@ -30,7 +31,7 @@ export function ScrollReveal() {
         el.removeAttribute("data-reveal");
         el.classList.remove("is-visible");
         el.style.removeProperty("--reveal-delay");
-      }, delay + 900);
+      }, delay + 1100);
     };
 
     const io = new IntersectionObserver(

@@ -15,7 +15,7 @@ const TYPES = [
 
 export function ContactForm({ defaultType, defaultOrder }: { defaultType?: string; defaultOrder?: string }) {
   const [state, action, pending] = useFormAction(submitContact, null);
-  if (state?.ok) return <div className="rounded-3xl bg-lavender p-8 text-center font-medium text-success" role="status">{state.message}</div>;
+  if (state?.ok) return <div className="rounded-3xl bg-white p-8 text-center shadow-soft font-medium text-success" role="status">{state.message}</div>;
   return (
     <form onSubmit={action} className="space-y-5 rounded-3xl border border-line bg-white p-6 shadow-soft sm:p-8">
       <div className="grid gap-5 sm:grid-cols-2">
