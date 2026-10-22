@@ -15,7 +15,7 @@ export async function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer className="mt-24 border-t border-line bg-lavender-pale">
-      <Container className="grid grid-cols-2 gap-10 py-16 lg:grid-cols-12">
+      <Container data-reveal-stagger="fade" className="grid grid-cols-2 gap-10 py-16 lg:grid-cols-12">
         <div className="col-span-2 lg:col-span-3">
           <div className="flex items-center gap-2.5">
             <LogoMark />

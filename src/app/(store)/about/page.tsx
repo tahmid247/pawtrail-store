@@ -18,7 +18,7 @@ export default async function AboutPage() {
         </div>
         <ButtonLink href="/shop" className="mt-8">Shop the collection</ButtonLink>
       </div>
-      <div className="relative aspect-square overflow-hidden rounded-[2rem] bg-lavender-pale">
+      <div data-reveal="scale" className="relative aspect-square overflow-hidden rounded-[2rem] bg-lavender-pale">
         <Image src="/products/carry-strap-lifestyle.jpg" alt="Our pet water bottle carried outdoors on a sunny day" fill sizes="(min-width:1024px) 50vw, 100vw" className="object-cover" />
       </div>
     </Container>

@@ -1,6 +1,7 @@
 import { AnnouncementBar } from "@/components/store/announcement-bar";
 import { Header } from "@/components/store/header";
 import { Footer } from "@/components/store/footer";
+import { ScrollReveal } from "@/components/store/scroll-reveal";
 
 export default function StoreLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -9,6 +10,7 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
       <Header />
       <main id="main">{children}</main>
       <Footer />
+      <ScrollReveal />
     </>
   );
 }

@@ -5,7 +5,7 @@ type Review = { id: string; authorName: string; rating: number; title: string | 
 
 export function ReviewList({ reviews }: { reviews: Review[] }) {
   return (
-    <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+    <ul data-reveal-stagger className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
       {reviews.map((r) => (
         <li key={r.id} className="rounded-3xl bg-white p-6 shadow-soft">
           <Stars rating={r.rating} />

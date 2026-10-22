@@ -82,10 +82,10 @@ export default async function HomePage() {
       {product && (
         <section className="py-20 sm:py-28" aria-labelledby="featured-title">
           <Container className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
-            <div className="relative aspect-square overflow-hidden rounded-[2rem] bg-lavender-pale">
+            <div data-reveal="left" className="relative aspect-square overflow-hidden rounded-[2rem] bg-lavender-pale">
               {product.images[0] && <Image src={product.images[0].url} alt={product.images[0].alt} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />}
             </div>
-            <div className="lg:py-6">
+            <div data-reveal="right" className="lg:py-6">
               <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-primary">Featured</p>
               <h2 id="featured-title" className="text-3xl font-bold sm:text-4xl">
                 <Link href={`/products/${product.slug}`} className="hover:text-primary">{product.title}</Link>
@@ -122,7 +122,7 @@ export default async function HomePage() {
       <section id="features" className="scroll-mt-24 bg-lavender-pale py-20 sm:py-28">
         <Container>
           <SectionHeading eyebrow="Why pet owners love it" title="Everything your pet needs on the go, in one hand" description="Designed around the small, everyday moments of being out with your pet." />
-          <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <ul data-reveal-stagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {features.map((f) => (
               <li key={f.title} className="group rounded-3xl bg-white p-7 shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-lift">
                 <span className="flex size-12 items-center justify-center rounded-2xl bg-lavender text-primary transition group-hover:bg-primary group-hover:text-white">
@@ -140,7 +140,7 @@ export default async function HomePage() {
       <section className="py-20 sm:py-28" aria-labelledby="how-title">
         <Container>
           <SectionHeading eyebrow="How it works" title={<span id="how-title">Three steps to a happy, hydrated pet</span>} />
-          <ol className="grid gap-6 md:grid-cols-3">
+          <ol data-reveal-stagger className="grid gap-6 md:grid-cols-3">
             {steps.map((s, i) => (
               <li key={s.title} className="relative rounded-3xl border border-line p-8">
                 <span className="font-display text-5xl font-extrabold text-lavender" aria-hidden>0{i + 1}</span>
@@ -160,7 +160,7 @@ export default async function HomePage() {
         <section className="pb-20 sm:pb-28" aria-labelledby="gallery-title">
           <Container>
             <SectionHeading eyebrow="Out and about" title={<span id="gallery-title">Made for life outdoors</span>} />
-            <ul className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:grid-rows-2">
+            <ul data-reveal-stagger="scale" className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:grid-rows-2">
               {gallery.slice(0, 5).map((img, i) => (
                 <li key={img.id} className={i === 0 ? "col-span-2 row-span-2" : ""}>
                   <div className="group relative aspect-square overflow-hidden rounded-3xl bg-lavender-pale">
@@ -180,7 +180,7 @@ export default async function HomePage() {
           {reviews.length > 0 ? (
             <ReviewList reviews={reviews} />
           ) : (
-            <div className="mx-auto max-w-lg rounded-3xl bg-white p-10 text-center shadow-soft">
+            <div data-reveal className="mx-auto max-w-lg rounded-3xl bg-white p-10 text-center shadow-soft">
               <MessageSquareHeart className="mx-auto size-10 text-primary" aria-hidden />
               <p className="mt-4 font-semibold">No reviews yet</p>
               <p className="mt-2 text-sm text-muted">
@@ -195,7 +195,9 @@ export default async function HomePage() {
       <section id="faq" className="scroll-mt-24 py-20 sm:py-28" aria-labelledby="faq-title">
         <Container className="max-w-3xl">
           <SectionHeading eyebrow="FAQ" title={<span id="faq-title">Questions, answered</span>} />
-          <Accordion items={settings.faq.map((f) => ({ title: f.question, content: <p className="whitespace-pre-line">{f.answer}</p> }))} />
+          <div data-reveal>
+            <Accordion items={settings.faq.map((f) => ({ title: f.question, content: <p className="whitespace-pre-line">{f.answer}</p> }))} />
+          </div>
           <p className="mt-8 text-center text-sm text-muted">
             Still have questions? <Link href="/contact" className="font-semibold text-primary hover:underline">Contact us</Link>
           </p>
@@ -205,7 +207,7 @@ export default async function HomePage() {
       {/* Newsletter */}
       <section aria-labelledby="newsletter-title">
         <Container>
-          <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-primary to-primary-deep px-6 py-14 text-white sm:px-14">
+          <div data-reveal="scale" className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-primary to-primary-deep px-6 py-14 text-white sm:px-14">
             <div className="pointer-events-none absolute -right-20 -top-20 size-80 rounded-full bg-white/10 blur-2xl" aria-hidden />
             <div className="relative grid items-center gap-8 lg:grid-cols-2">
               <div>

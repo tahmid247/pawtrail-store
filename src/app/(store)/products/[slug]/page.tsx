@@ -150,14 +150,14 @@ export default async function ProductPage({ params }: Props) {
             />
           </div>
           <div className="mt-10">
-            <Accordion items={details} />
+            <div data-reveal><Accordion items={details} /></div>
           </div>
         </div>
       </Container>
 
       <section id="reviews" className="scroll-mt-24 bg-lavender-pale py-16 sm:py-20" aria-labelledby="reviews-heading">
         <Container>
-          <div className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <div data-reveal className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <h2 id="reviews-heading" className="text-2xl font-bold sm:text-3xl">Customer reviews</h2>
               <p className="mt-1 text-sm text-muted">
@@ -179,8 +179,8 @@ export default async function ProductPage({ params }: Props) {
       {product.faqs.length > 0 && (
         <section className="py-16 sm:py-20" aria-labelledby="pfaq">
           <Container className="max-w-3xl">
-            <h2 id="pfaq" className="mb-8 text-center text-2xl font-bold sm:text-3xl">Product FAQ</h2>
-            <Accordion items={product.faqs.map((f) => ({ title: f.question, content: <p className="whitespace-pre-line">{f.answer}</p> }))} />
+            <h2 id="pfaq" data-reveal className="mb-8 text-center text-2xl font-bold sm:text-3xl">Product FAQ</h2>
+            <div data-reveal><Accordion items={product.faqs.map((f) => ({ title: f.question, content: <p className="whitespace-pre-line">{f.answer}</p> }))} /></div>
           </Container>
         </section>
       )}
@@ -188,8 +188,8 @@ export default async function ProductPage({ params }: Props) {
       {others.length > 0 && (
         <section className="pb-8" aria-labelledby="related">
           <Container>
-            <h2 id="related" className="mb-8 text-2xl font-bold">You may also like</h2>
-            <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <h2 id="related" data-reveal className="mb-8 text-2xl font-bold">You may also like</h2>
+            <ul data-reveal-stagger className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {others.map((p) => <li key={p.id}><ProductCard product={p} /></li>)}
             </ul>
           </Container>
