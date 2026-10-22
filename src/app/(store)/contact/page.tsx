@@ -17,7 +17,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
           <li className="flex gap-3"><Mail className="size-5 text-primary" aria-hidden /><a href={`mailto:${s.brand.supportEmail}`} className="hover:text-primary">{s.brand.supportEmail}</a></li>
           <li className="flex gap-3"><MapPin className="size-5 text-primary" aria-hidden /><span>{s.business.legalName}<br />{s.business.address}</span></li>
         </ul>
-        <p className="mt-8 rounded-2xl bg-lavender-pale p-4 text-sm text-muted">
+        <p className="mt-8 rounded-2xl bg-lavender p-4 text-sm text-[#4a4357]">
           To withdraw from a purchase, choose &ldquo;Withdrawal / return&rdquo; below and include your order number. For a damaged or incorrect item, please attach photos by replying to our confirmation email.
         </p>
       </div>

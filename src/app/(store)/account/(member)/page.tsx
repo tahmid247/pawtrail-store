@@ -22,7 +22,7 @@ export default async function AccountPage() {
     <>
       <h1 className="text-3xl font-extrabold">My orders</h1>
       {orders.length === 0 ? (
-        <div className="mt-8 rounded-3xl bg-lavender-pale p-10 text-center">
+        <div className="mt-8 rounded-3xl bg-lavender p-10 text-center">
           <p className="font-semibold">No orders yet</p>
           <ButtonLink href="/shop" className="mt-5">Start shopping</ButtonLink>
         </div>

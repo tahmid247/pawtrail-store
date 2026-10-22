@@ -6,8 +6,8 @@ export function LogoMark({ className = "size-8" }: { className?: string }) {
     <svg viewBox="0 0 32 32" className={className} aria-hidden>
       <defs>
         <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="var(--brand-primary)" />
-          <stop offset="1" stopColor="var(--brand-primary-deep)" />
+          <stop offset="0" stopColor="color-mix(in oklab, var(--brand-primary) 70%, #fff)" />
+          <stop offset="1" stopColor="var(--brand-primary)" />
         </linearGradient>
       </defs>
       <rect width="32" height="32" rx="10" fill="url(#lg)" />
@@ -21,7 +21,7 @@ export function LogoMark({ className = "size-8" }: { className?: string }) {
   );
 }
 
-export function Logo({ name, logoUrl }: { name: string; logoUrl: string | null }) {
+export function Logo({ name, logoUrl, tone = "light" }: { name: string; logoUrl: string | null; tone?: "light" | "dark" }) {
   return (
     <Link href="/" className="flex items-center gap-2.5 rounded-lg" aria-label={`${name} — home`}>
       {logoUrl ? (
@@ -29,7 +29,7 @@ export function Logo({ name, logoUrl }: { name: string; logoUrl: string | null }
       ) : (
         <>
           <LogoMark />
-          <span className="font-display text-lg font-extrabold tracking-tight text-ink">{name}</span>
+          <span className={`font-display text-lg font-extrabold tracking-tight ${tone === "dark" ? "text-white" : "text-ink"}`}>{name}</span>
         </>
       )}
     </Link>

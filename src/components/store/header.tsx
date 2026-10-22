@@ -18,17 +18,17 @@ export async function Header() {
   const [settings, cart, user] = await Promise.all([getSettings(), getCart(), getCurrentUser()]);
   const count = cartItemCount(cart);
   return (
-    <header className="sticky top-0 z-40 border-b border-line/70 bg-white/85 backdrop-blur-xl supports-[backdrop-filter]:bg-white/75">
+    <header className="sticky top-0 z-40 border-b border-white/10 bg-night text-white shadow-[0_8px_30px_-12px_rgb(20_6_60/0.6)]">
       <Container className="flex h-16 items-center justify-between gap-4 sm:h-[4.5rem]">
         <div className="flex items-center gap-2">
           <MobileMenu nav={NAV} signedIn={Boolean(user)} />
-          <Logo name={settings.brand.name} logoUrl={settings.brand.logoUrl} />
+          <Logo name={settings.brand.name} logoUrl={settings.brand.logoUrl} tone="dark" />
         </div>
         <nav aria-label="Main" className="hidden md:block">
           <ul className="flex items-center gap-1">
             {NAV.map((n) => (
               <li key={n.href}>
-                <Link href={n.href} className="rounded-full px-4 py-2 text-sm font-medium text-ink/80 transition hover:bg-lavender-pale hover:text-primary">
+                <Link href={n.href} className="rounded-full px-4 py-2 text-sm font-medium text-white/80 transition hover:bg-white/10 hover:text-white">
                   {n.label}
                 </Link>
               </li>
@@ -36,13 +36,13 @@ export async function Header() {
           </ul>
         </nav>
         <div className="flex items-center gap-1">
-          <Link href={user ? "/account" : "/account/login"} className="hidden rounded-full p-2.5 text-ink/80 transition hover:bg-lavender-pale hover:text-primary sm:inline-flex" aria-label={user ? "My account" : "Sign in"}>
+          <Link href={user ? "/account" : "/account/login"} className="hidden rounded-full p-2.5 text-white/85 transition hover:bg-white/10 hover:text-white sm:inline-flex" aria-label={user ? "My account" : "Sign in"}>
             <User className="size-5" />
           </Link>
-          <Link href="/cart" className="relative inline-flex rounded-full p-2.5 text-ink/80 transition hover:bg-lavender-pale hover:text-primary" aria-label={`Shopping cart, ${count} item${count === 1 ? "" : "s"}`}>
+          <Link href="/cart" className="relative inline-flex rounded-full p-2.5 text-white/85 transition hover:bg-white/10 hover:text-white" aria-label={`Shopping cart, ${count} item${count === 1 ? "" : "s"}`}>
             <ShoppingBag className="size-5" />
             {count > 0 && (
-              <span className="absolute -right-0.5 -top-0.5 flex min-w-5 items-center justify-center rounded-full bg-primary px-1 text-[0.7rem] font-bold leading-5 text-white" aria-hidden>
+              <span className="absolute -right-0.5 -top-0.5 flex min-w-5 items-center justify-center rounded-full bg-glow px-1 text-[0.7rem] font-bold leading-5 text-night" aria-hidden>
                 {count}
               </span>
             )}

@@ -24,7 +24,7 @@ export function MobileMenu({ nav, signedIn }: { nav: { href: string; label: stri
 
   return (
     <div className="md:hidden">
-      <button onClick={() => setOpen(true)} className="-ml-2 rounded-full p-2.5 text-ink hover:bg-lavender-pale" aria-label="Open menu" aria-expanded={open} aria-controls="mobile-menu">
+      <button onClick={() => setOpen(true)} className="-ml-2 rounded-full p-2.5 text-white hover:bg-white/10" aria-label="Open menu" aria-expanded={open} aria-controls="mobile-menu">
         <Menu className="size-5" />
       </button>
       {open && (

@@ -40,37 +40,38 @@ export default async function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-lavender-pale via-white to-white">
-        <div className="pointer-events-none absolute -right-40 -top-40 size-[36rem] rounded-full bg-lavender blur-3xl" aria-hidden />
+      <section className="relative overflow-hidden bg-gradient-to-br from-night via-primary-deep to-primary text-white">
+        <div className="pointer-events-none absolute -right-40 -top-40 size-[36rem] rounded-full bg-glow/30 blur-3xl" aria-hidden />
+        <div className="pointer-events-none absolute -bottom-48 -left-32 size-[30rem] rounded-full bg-primary/40 blur-3xl" aria-hidden />
         <Container className="relative grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-2 lg:gap-16 lg:py-24">
           <div className="animate-fade-up">
-            <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white px-3.5 py-1.5 text-xs font-semibold text-primary-deep shadow-soft">
-              <Sparkles className="size-3.5 text-primary" aria-hidden /> The 2-in-1 water &amp; food bottle
+            <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-xs font-semibold text-white backdrop-blur">
+              <Sparkles className="size-3.5 text-glow" aria-hidden /> The 2-in-1 water &amp; food bottle
             </p>
-            <h1 className="text-4xl font-extrabold leading-[1.05] text-ink sm:text-5xl lg:text-6xl">{settings.home.heroHeadline}</h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">{settings.home.heroSubheadline}</p>
+            <h1 className="text-4xl font-extrabold leading-[1.05] text-white sm:text-5xl lg:text-6xl">{settings.home.heroHeadline}</h1>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/75">{settings.home.heroSubheadline}</p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href={product ? `/products/${product.slug}` : "/shop"} size="lg">
+              <ButtonLink href={product ? `/products/${product.slug}` : "/shop"} size="lg" variant="light">
                 Shop Now <ArrowRight className="size-4" aria-hidden />
               </ButtonLink>
-              <ButtonLink href="#features" size="lg" variant="outline">
+              <ButtonLink href="#features" size="lg" variant="outlineLight">
                 Explore Features
               </ButtonLink>
             </div>
             {summary && summary.count > 0 && (
-              <p className="mt-8 flex items-center gap-2 text-sm text-muted">
+              <p className="mt-8 flex items-center gap-2 text-sm text-white/75">
                 <Stars rating={summary.average} /> {summary.average.toFixed(1)} from {summary.count} verified review{summary.count === 1 ? "" : "s"}
               </p>
             )}
           </div>
           <div className="relative">
-            <div className="relative aspect-square overflow-hidden rounded-[2rem] shadow-lift ring-1 ring-black/5">
+            <div className="relative aspect-square overflow-hidden rounded-[2rem] shadow-[0_30px_80px_-20px_rgb(0_0_0/0.55)] ring-1 ring-white/15">
               <Image src={settings.home.heroImage} alt="A corgi drinking from the Portable Pet Water Bottle on a walk" fill priority sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
             </div>
             <div className="absolute -bottom-5 -left-3 hidden rounded-2xl bg-white p-4 shadow-lift sm:flex sm:items-center sm:gap-3">
-              <span className="flex size-10 items-center justify-center rounded-xl bg-lavender text-primary"><PawPrint className="size-5" aria-hidden /></span>
+              <span className="flex size-10 items-center justify-center rounded-xl bg-primary text-white"><PawPrint className="size-5" aria-hidden /></span>
               <span className="text-sm">
-                <span className="block font-semibold">Water + food</span>
+                <span className="block font-semibold text-ink">Water + food</span>
                 <span className="text-muted">in one bottle</span>
               </span>
             </div>
@@ -100,7 +101,7 @@ export default async function HomePage() {
                   ))}
                 </ul>
               )}
-              <div className="mt-8 rounded-3xl border border-line p-6 shadow-soft">
+              <div className="mt-8 rounded-3xl border border-line bg-white p-6 shadow-soft">
                 <ProductPurchase
                   productTitle={product.title}
                   variants={product.variants}
@@ -119,13 +120,13 @@ export default async function HomePage() {
       )}
 
       {/* Why pet owners love it */}
-      <section id="features" className="scroll-mt-24 bg-lavender-pale py-20 sm:py-28">
+      <section id="features" className="scroll-mt-24 bg-lavender py-20 sm:py-28">
         <Container>
           <SectionHeading eyebrow="Why pet owners love it" title="Everything your pet needs on the go, in one hand" description="Designed around the small, everyday moments of being out with your pet." />
           <ul data-reveal-stagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {features.map((f) => (
               <li key={f.title} className="group rounded-3xl bg-white p-7 shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-lift">
-                <span className="flex size-12 items-center justify-center rounded-2xl bg-lavender text-primary transition group-hover:bg-primary group-hover:text-white">
+                <span className="flex size-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-primary-deep text-white shadow-[0_8px_20px_-8px_rgb(112_71_235/0.8)] transition group-hover:scale-110">
                   <f.icon className="size-6" aria-hidden />
                 </span>
                 <h3 className="mt-6 text-lg font-bold">{f.title}</h3>
@@ -137,18 +138,19 @@ export default async function HomePage() {
       </section>
 
       {/* How it works */}
-      <section className="py-20 sm:py-28" aria-labelledby="how-title">
-        <Container>
-          <SectionHeading eyebrow="How it works" title={<span id="how-title">Three steps to a happy, hydrated pet</span>} />
+      <section className="relative overflow-hidden bg-gradient-to-b from-primary-deep to-night py-20 text-white sm:py-28" aria-labelledby="how-title">
+        <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-[48rem] -translate-x-1/2 rounded-full bg-primary/35 blur-3xl" aria-hidden />
+        <Container className="relative">
+          <SectionHeading tone="dark" eyebrow="How it works" title={<span id="how-title">Three steps to a happy, hydrated pet</span>} />
           <ol data-reveal-stagger className="grid gap-6 md:grid-cols-3">
             {steps.map((s, i) => (
-              <li key={s.title} className="relative rounded-3xl border border-line p-8">
-                <span className="font-display text-5xl font-extrabold text-lavender" aria-hidden>0{i + 1}</span>
+              <li key={s.title} className="relative rounded-3xl border border-white/15 bg-white/[0.06] p-8 backdrop-blur">
+                <span className="bg-gradient-to-br from-glow to-white bg-clip-text font-display text-5xl font-extrabold text-transparent" aria-hidden>0{i + 1}</span>
                 <h3 className="mt-4 text-xl font-bold">
                   <span className="sr-only">Step {i + 1}: </span>
                   {s.title}
                 </h3>
-                <p className="mt-2 leading-relaxed text-muted">{s.body}</p>
+                <p className="mt-2 leading-relaxed text-white/70">{s.body}</p>
               </li>
             ))}
           </ol>
@@ -157,7 +159,7 @@ export default async function HomePage() {
 
       {/* Lifestyle gallery */}
       {gallery.length > 2 && (
-        <section className="pb-20 sm:pb-28" aria-labelledby="gallery-title">
+        <section className="py-20 sm:py-28" aria-labelledby="gallery-title">
           <Container>
             <SectionHeading eyebrow="Out and about" title={<span id="gallery-title">Made for life outdoors</span>} />
             <ul data-reveal-stagger="scale" className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:grid-rows-2">
@@ -174,7 +176,7 @@ export default async function HomePage() {
       )}
 
       {/* Reviews */}
-      <section className="bg-lavender-pale py-20 sm:py-28" aria-labelledby="reviews-title">
+      <section className="bg-lavender py-20 sm:py-28" aria-labelledby="reviews-title">
         <Container>
           <SectionHeading eyebrow="Customer reviews" title={<span id="reviews-title">What customers say</span>} />
           {reviews.length > 0 ? (

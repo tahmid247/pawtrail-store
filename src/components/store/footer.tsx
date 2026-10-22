@@ -14,19 +14,20 @@ export async function Footer() {
   ].filter((x) => x.href);
   const year = new Date().getFullYear();
   return (
-    <footer className="mt-24 border-t border-line bg-lavender-pale">
-      <Container data-reveal-stagger="fade" className="grid grid-cols-2 gap-10 py-16 lg:grid-cols-12">
+    <footer className="relative mt-24 overflow-hidden bg-night text-white">
+      <div className="pointer-events-none absolute -left-32 -top-40 size-[30rem] rounded-full bg-primary/30 blur-3xl" aria-hidden />
+      <Container data-reveal-stagger="fade" className="relative grid grid-cols-2 gap-10 py-16 lg:grid-cols-12">
         <div className="col-span-2 lg:col-span-3">
           <div className="flex items-center gap-2.5">
             <LogoMark />
-            <span className="font-display text-lg font-extrabold">{s.brand.name}</span>
+            <span className="font-display text-lg font-extrabold text-white">{s.brand.name}</span>
           </div>
-          <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">{s.brand.tagline}</p>
+          <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/65">{s.brand.tagline}</p>
           {socials.length > 0 && (
             <ul className="mt-6 flex gap-4 text-sm font-medium">
               {socials.map((x) => (
                 <li key={x.label}>
-                  <a href={x.href} target="_blank" rel="noopener noreferrer" className="text-ink/80 hover:text-primary">
+                  <a href={x.href} target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white">
                     {x.label}
                   </a>
                 </li>
@@ -39,18 +40,18 @@ export async function Footer() {
         <FooterCol title="Policies" links={[["Terms & Conditions", "/legal/terms"], ["Shipping", "/legal/shipping"], ["Returns & Refunds", "/legal/returns"], ["Privacy Policy", "/legal/privacy"], ["Cookie Policy", "/legal/cookies"], ["Legal notice", "/legal/legal-notice"]]} />
         <div className="col-span-2 lg:col-span-3">
           <h2 className="text-sm font-bold">Stay in the loop</h2>
-          <p className="mt-2 text-sm text-muted">New products and the occasional offer. No spam — unsubscribe anytime.</p>
-          <NewsletterForm />
+          <p className="mt-2 text-sm text-white/65">New products and the occasional offer. No spam — unsubscribe anytime.</p>
+          <NewsletterForm tone="dark" />
         </div>
       </Container>
-      <div className="border-t border-line">
-        <Container className="flex flex-col gap-3 py-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
+      <div className="relative border-t border-white/10">
+        <Container className="flex flex-col gap-3 py-6 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {s.business.legalName} · {s.business.address} · VAT {s.business.vatNumber}
           </p>
           <div className="flex items-center gap-4">
             <span>Prices in EUR incl. VAT</span>
-            <CookieSettingsLink className="underline underline-offset-2 hover:text-primary" />
+            <CookieSettingsLink className="underline underline-offset-2 hover:text-white" />
           </div>
         </Container>
       </div>
@@ -61,11 +62,11 @@ export async function Footer() {
 function FooterCol({ title, links }: { title: string; links: [string, string][] }) {
   return (
     <div className="lg:col-span-2">
-      <h2 className="text-sm font-bold">{title}</h2>
+      <h2 className="text-sm font-bold text-white">{title}</h2>
       <ul className="mt-4 space-y-2.5 text-sm">
         {links.map(([label, href]) => (
           <li key={href}>
-            <Link href={href} className="text-muted transition hover:text-primary">
+            <Link href={href} className="text-white/65 transition hover:text-white">
               {label}
             </Link>
           </li>

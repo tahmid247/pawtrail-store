@@ -40,12 +40,13 @@ export function Accordion({ items, className }: { items: { title: ReactNode; con
   );
 }
 
-export function SectionHeading({ eyebrow, title, description, align = "center" }: { eyebrow?: string; title: ReactNode; description?: ReactNode; align?: "center" | "left" }) {
+export function SectionHeading({ eyebrow, title, description, align = "center", tone = "light" }: { eyebrow?: string; title: ReactNode; description?: ReactNode; align?: "center" | "left"; tone?: "light" | "dark" }) {
+  const dark = tone === "dark";
   return (
     <div data-reveal className={cn("mb-10 max-w-2xl sm:mb-14", align === "center" && "mx-auto text-center")}>
-      {eyebrow && <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-primary">{eyebrow}</p>}
-      <h2 className="text-3xl font-bold text-ink sm:text-4xl">{title}</h2>
-      {description && <p className="mt-4 text-base text-muted sm:text-lg">{description}</p>}
+      {eyebrow && <p className={cn("mb-3 text-xs font-bold uppercase tracking-[0.18em]", dark ? "text-glow" : "text-primary")}>{eyebrow}</p>}
+      <h2 className={cn("text-3xl font-bold sm:text-4xl", dark ? "text-white" : "text-ink")}>{title}</h2>
+      {description && <p className={cn("mt-4 text-base sm:text-lg", dark ? "text-white/70" : "text-muted")}>{description}</p>}
     </div>
   );
 }

@@ -155,7 +155,7 @@ export default async function ProductPage({ params }: Props) {
         </div>
       </Container>
 
-      <section id="reviews" className="scroll-mt-24 bg-lavender-pale py-16 sm:py-20" aria-labelledby="reviews-heading">
+      <section id="reviews" className="scroll-mt-24 bg-lavender py-16 sm:py-20" aria-labelledby="reviews-heading">
         <Container>
           <div data-reveal className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>

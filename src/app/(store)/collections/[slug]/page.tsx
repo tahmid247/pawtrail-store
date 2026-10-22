@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db";
 import { listProducts } from "@/lib/catalog";
 import { Container } from "@/components/ui/misc";
 import { ProductCard } from "@/components/store/product-card";
+import { PageBanner } from "@/components/store/page-banner";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -23,12 +24,15 @@ export default async function CollectionPage({ params }: Props) {
   if (!collection) notFound();
   const products = await listProducts({ collectionSlug: slug });
   return (
+    <>
+    <PageBanner eyebrow="Collection" title={collection.title}>
+      {collection.description && <p className="max-w-2xl">{collection.description}</p>}
+    </PageBanner>
     <Container className="py-12 sm:py-16">
-      <h1 className="text-4xl font-extrabold">{collection.title}</h1>
-      {collection.description && <p className="mt-3 max-w-2xl text-muted">{collection.description}</p>}
-      <ul data-reveal-stagger className="mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+      <ul data-reveal-stagger className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
         {products.map((p) => <li key={p.id}><ProductCard product={p} /></li>)}
       </ul>
     </Container>
+    </>
   );
 }

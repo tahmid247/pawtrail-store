@@ -26,7 +26,7 @@ export default async function CartPage({ searchParams }: { searchParams: Promise
       <h1 className="text-4xl font-extrabold">Your cart</h1>
       {cancelled && <Alert tone="warning" className="mt-6">Payment was cancelled — your order {cancelled} was not placed. Your cart is still here.</Alert>}
       {items.length === 0 ? (
-        <div className="mt-10 rounded-3xl bg-lavender-pale p-12 text-center">
+        <div className="mt-10 rounded-3xl bg-lavender p-12 text-center">
           <ShoppingBag className="mx-auto size-10 text-primary" aria-hidden />
           <p className="mt-4 text-lg font-semibold">Your cart is empty</p>
           <ButtonLink href="/shop" className="mt-6">Continue shopping</ButtonLink>
@@ -55,7 +55,7 @@ export default async function CartPage({ searchParams }: { searchParams: Promise
             ))}
           </ul>
 
-          <aside className="h-fit rounded-3xl border border-line p-6 shadow-soft lg:sticky lg:top-28" aria-label="Order summary">
+          <aside className="h-fit rounded-3xl border border-line bg-white p-6 shadow-soft lg:sticky lg:top-28" aria-label="Order summary">
             <h2 className="text-lg font-bold">Order summary</h2>
             <dl className="mt-5 space-y-3 text-sm">
               <Row label="Subtotal" value={formatMoney(quote.subtotalCents, quote.currency)} />

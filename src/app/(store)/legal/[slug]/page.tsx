@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db";
 import { getSettings } from "@/lib/settings";
 import { Container } from "@/components/ui/misc";
 import { Markdown } from "@/components/markdown";
+import { PageBanner } from "@/components/store/page-banner";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -36,12 +37,15 @@ export default async function LegalPage({ params }: Props) {
   const page = await getPage((await params).slug);
   if (!page) notFound();
   return (
+    <>
+    <PageBanner eyebrow="Policies" title={page.title}>
+      <p className="text-sm">Version {page.version} · updated {page.updatedAt.toLocaleDateString("en-GB", { dateStyle: "long" })}</p>
+    </PageBanner>
     <Container className="max-w-3xl py-12 sm:py-16">
-      <h1 className="text-3xl font-extrabold sm:text-4xl">{page.title}</h1>
-      <p className="mt-2 text-sm text-muted">Version {page.version} · updated {page.updatedAt.toLocaleDateString("en-GB", { dateStyle: "long" })}</p>
-      <article className="mt-10">
+      <article className="rounded-3xl bg-white p-6 shadow-soft sm:p-10">
         <Markdown source={await fillPlaceholders(page.content)} />
       </article>
     </Container>
+    </>
   );
 }

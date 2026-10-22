@@ -62,7 +62,7 @@ export default async function CheckoutPage({ searchParams }: { searchParams: Pro
           seller={`${settings.business.legalName}, ${settings.business.address} — VAT ${settings.business.vatNumber} — ${settings.brand.supportEmail}`}
         />
 
-        <aside className="h-fit rounded-3xl border border-line bg-lavender-pale/50 p-6 lg:sticky lg:top-28" aria-label="Order summary">
+        <aside className="h-fit rounded-3xl border border-line bg-white p-6 shadow-soft lg:sticky lg:top-28" aria-label="Order summary">
           <h2 className="text-lg font-bold">Order summary</h2>
           <ul className="mt-5 space-y-4">
             {quote.lines.map((l) => (

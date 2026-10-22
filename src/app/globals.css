@@ -13,6 +13,9 @@
   --color-primary-deep: var(--brand-primary-deep);
   --color-lavender: var(--brand-lavender);
   --color-lavender-pale: var(--brand-lavender-pale);
+  /* Deepest violet for dark sections, and a luminous violet for accents on dark backgrounds */
+  --color-night: color-mix(in oklab, var(--brand-primary-deep) 58%, #0a0320);
+  --color-glow: color-mix(in oklab, var(--brand-primary) 55%, #ffffff);
   --color-ink: #211b30;
   --color-muted: #756f80;
   --color-line: #e7e2f0;
@@ -40,7 +43,7 @@ html {
 }
 
 body {
-  background: #ffffff;
+  background: var(--brand-lavender-pale);
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;

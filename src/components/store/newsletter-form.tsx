@@ -6,7 +6,7 @@ import { NEWSLETTER_CONSENT_TEXT } from "@/lib/consent";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/field";
 
-export function NewsletterForm({ id = "newsletter" }: { id?: string }) {
+export function NewsletterForm({ id = "newsletter", tone = "light" }: { id?: string; tone?: "light" | "dark" }) {
   const [state, action, pending] = useFormAction(subscribeNewsletter, null);
   if (state?.ok) return <p className="mt-4 rounded-xl bg-white p-4 text-sm font-medium text-success" role="status">{state.message}</p>;
   return (
@@ -14,15 +14,15 @@ export function NewsletterForm({ id = "newsletter" }: { id?: string }) {
       <div className="flex gap-2">
         <label htmlFor={`${id}-email`} className="sr-only">Email address</label>
         <Input id={`${id}-email`} name="email" type="email" required autoComplete="email" placeholder="you@example.com" className="bg-white" />
-        <Button type="submit" disabled={pending} className="shrink-0">Subscribe</Button>
+        <Button type="submit" disabled={pending} variant={tone === "dark" ? "light" : "primary"} className="shrink-0">Subscribe</Button>
       </div>
       {/* Honeypot for bots */}
       <input type="text" name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
-      <label className="flex items-start gap-2 text-xs leading-relaxed text-muted">
+      <label className={`flex items-start gap-2 text-xs leading-relaxed ${tone === "dark" ? "text-white/65" : "text-muted"}`}>
         <input type="checkbox" name="consent" required className="mt-0.5 accent-primary" />
         <span>{NEWSLETTER_CONSENT_TEXT} See our <Link href="/legal/privacy" className="underline">Privacy Policy</Link>.</span>
       </label>
-      {state?.error && <p className="text-xs font-medium text-danger" role="alert">{state.error}</p>}
+      {state?.error && <p className={`text-xs font-medium ${tone === "dark" ? "text-[#ffb4ab]" : "text-danger"}`} role="alert">{state.error}</p>}
     </form>
   );
 }

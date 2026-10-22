@@ -15,9 +15,9 @@ const TYPES = [
 
 export function ContactForm({ defaultType, defaultOrder }: { defaultType?: string; defaultOrder?: string }) {
   const [state, action, pending] = useFormAction(submitContact, null);
-  if (state?.ok) return <div className="rounded-3xl bg-lavender-pale p-8 text-center font-medium text-success" role="status">{state.message}</div>;
+  if (state?.ok) return <div className="rounded-3xl bg-lavender p-8 text-center font-medium text-success" role="status">{state.message}</div>;
   return (
-    <form onSubmit={action} className="space-y-5 rounded-3xl border border-line p-6 shadow-soft sm:p-8">
+    <form onSubmit={action} className="space-y-5 rounded-3xl border border-line bg-white p-6 shadow-soft sm:p-8">
       <div className="grid gap-5 sm:grid-cols-2">
         <Field label="Name" htmlFor="c-name"><Input id="c-name" name="name" required maxLength={120} autoComplete="name" /></Field>
         <Field label="Email" htmlFor="c-email"><Input id="c-email" name="email" type="email" required autoComplete="email" /></Field>
