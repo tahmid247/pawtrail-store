@@ -40,8 +40,15 @@ export async function GET() {
     lastWebhook: lastStripeWebhook,
   };
 
+  // Region hints for performance diagnosis (no secrets): where this function runs and where the DB lives.
+  const dbHost = url ? new URL(url).hostname : "";
+  const regions = {
+    function: process.env.VERCEL_REGION ?? null,
+    database: /eu-central-1|frankfurt|fra/i.test(dbHost) ? "eu-central-1 (Frankfurt)" : (/(us|eu|ap)-[a-z]+-\d/.exec(dbHost)?.[0] ?? null),
+  };
+
   return NextResponse.json(
-    { ok, databaseUrlFound: Boolean(url), envVarsPresent: configured, database, stripe },
+    { ok, databaseUrlFound: Boolean(url), envVarsPresent: configured, database, stripe, regions },
     { status: ok ? 200 : 503, headers: { "Cache-Control": "no-store" } },
   );
 }

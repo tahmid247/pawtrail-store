@@ -23,5 +23,8 @@
       "schedule": "0 3 * * *"
     }
   ],
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "regions": [
+    "fra1"
+  ]
 }

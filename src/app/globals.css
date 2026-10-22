@@ -123,3 +123,5 @@ p { text-wrap: pretty; }
     transition: opacity 0.8s ease var(--reveal-delay, 0ms) !important;
   }
 }
+
+@keyframes nav-progress-start { from { width: 0%; } to { width: 30%; } }

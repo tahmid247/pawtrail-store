@@ -3,6 +3,8 @@ import { cookies } from "next/headers";
 import "@fontsource-variable/plus-jakarta-sans";
 import "./globals.css";
 import { TranslateGuard } from "@/components/translate-guard";
+import { Suspense } from "react";
+import { NavigationProgress } from "@/components/navigation-progress";
 import { getSettings } from "@/lib/settings";
 import { resolveSiteUrl } from "@/lib/runtime-config";
 import { CONSENT_COOKIE, parseConsent } from "@/lib/consent";
@@ -43,6 +45,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body className="min-h-dvh">
         <TranslateGuard />
+        <Suspense fallback={null}>
+          <NavigationProgress />
+        </Suspense>
         <a href="#main" className="sr-only z-[100] rounded-full bg-primary px-4 py-2 text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4">
           Skip to content
         </a>
