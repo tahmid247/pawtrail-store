@@ -4,6 +4,7 @@ import { env } from "../env";
 import { audit } from "../audit";
 import { sendEmail } from "../email";
 import { formatMoney } from "../money";
+import { getSettings } from "../settings";
 import { cancelUnpaidOrder, type PendingOrder } from "../orders";
 import { stripeProvider } from "./stripe";
 import { simulatedProvider } from "./simulated";
@@ -25,6 +26,7 @@ export async function startPaymentSession(pending: PendingOrder) {
   const { order, quote, accessToken } = pending;
   const successUrl = `${env.siteUrl}/checkout/success?order=${encodeURIComponent(order.number)}&token=${encodeURIComponent(accessToken)}`;
   const cancelUrl = `${env.siteUrl}/cart?cancelled=${encodeURIComponent(order.number)}`;
+  const settings = await getSettings();
   try {
     const session = await provider.createCheckout({
       orderId: order.id,
@@ -50,6 +52,16 @@ export async function startPaymentSession(pending: PendingOrder) {
       cancelUrl,
       // Stripe requires 30 min – 24 h; reservations outlive the session by 5 minutes.
       expiresAt: new Date(pending.reservationExpiresAt.getTime() - 5 * 60_000),
+      branding: {
+        displayName: settings.brand.name,
+        buttonColor: settings.theme.primary,
+        backgroundColor: settings.theme.lavenderPale,
+        logoUrl: settings.brand.logoUrl ? new URL(settings.brand.logoUrl, env.siteUrl).toString() : null,
+        iconUrl: `${env.siteUrl}/brand/checkout-icon.png`,
+        submitMessage:
+          `Order ${order.number} · Prices include VAT. ` +
+          `You have a ${settings.commerce.withdrawalDays}-day right of withdrawal from delivery on eligible items — see ${env.siteUrl}/legal/returns.`,
+      },
     });
     await prisma.order.update({ where: { id: order.id }, data: { stripeCheckoutSessionId: session.sessionId } });
     return session.url;

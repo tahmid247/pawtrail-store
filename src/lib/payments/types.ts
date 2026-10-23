@@ -12,6 +12,18 @@ export type CheckoutRequest = {
   successUrl: string;
   cancelUrl: string;
   expiresAt: Date;
+  /** Look and wording of the hosted payment page, taken from Admin → Settings */
+  branding?: CheckoutBranding;
+};
+
+export type CheckoutBranding = {
+  displayName: string;
+  buttonColor: string;
+  backgroundColor: string;
+  /** Absolute URL of a wide logo (Admin → Settings → Brand); the square icon is used when there is none */
+  logoUrl: string | null;
+  iconUrl: string;
+  submitMessage: string;
 };
 
 export type CheckoutSessionResult = { sessionId: string; url: string };

@@ -1,7 +1,7 @@
 import "server-only";
 import Stripe from "stripe";
 import { env } from "../env";
-import type { CheckoutRequest, PaymentProvider } from "./types";
+import type { CheckoutBranding, CheckoutRequest, PaymentProvider } from "./types";
 
 let client: Stripe | null = null;
 
@@ -15,6 +15,30 @@ export function getStripe(): Stripe {
     appInfo: { name: "pawtrail-store" },
   });
   return client;
+}
+
+type SessionParams = Stripe.Checkout.SessionCreateParams;
+
+/** Brand colours, logo and wording on the Stripe-hosted page. Images need a public https URL. */
+function brandingParams(b: CheckoutBranding | undefined, publicImages: boolean): Pick<SessionParams, "branding_settings" | "custom_text"> {
+  if (!b) return {};
+  const image = b.logoUrl?.startsWith("https://")
+    ? { logo: { type: "url" as const, url: b.logoUrl } }
+    : publicImages
+      ? { icon: { type: "url" as const, url: b.iconUrl } }
+      : {};
+  return {
+    branding_settings: {
+      display_name: b.displayName,
+      button_color: b.buttonColor,
+      background_color: b.backgroundColor,
+      border_style: "pill",
+      // Closest Stripe-supported match to the storefront's Plus Jakarta Sans
+      font_family: "be_vietnam_pro",
+      ...image,
+    },
+    custom_text: { submit: { message: b.submitMessage.slice(0, 1200) } },
+  };
 }
 
 export const stripeProvider: PaymentProvider = {
@@ -43,47 +67,54 @@ export const stripeProvider: PaymentProvider = {
           }
         : undefined;
 
-    const session = await stripe.checkout.sessions.create(
-      {
-        mode: "payment",
-        customer_email: req.email,
-        client_reference_id: req.orderId,
-        metadata: { orderId: req.orderId, orderNumber: req.orderNumber },
-        payment_intent_data: { metadata: { orderId: req.orderId, orderNumber: req.orderNumber } },
-        line_items: req.lines.map((l) => ({
-          quantity: l.quantity,
-          price_data: {
-            currency,
-            unit_amount: l.unitAmountCents,
-            product_data: {
-              name: l.name,
-              ...(l.description ? { description: l.description } : {}),
-              ...(publicImages && l.imageUrl ? { images: [new URL(l.imageUrl, env.siteUrl).toString()] } : {}),
-            },
+    const params: SessionParams = {
+      mode: "payment",
+      customer_email: req.email,
+      client_reference_id: req.orderId,
+      metadata: { orderId: req.orderId, orderNumber: req.orderNumber },
+      payment_intent_data: { metadata: { orderId: req.orderId, orderNumber: req.orderNumber } },
+      line_items: req.lines.map((l) => ({
+        quantity: l.quantity,
+        price_data: {
+          currency,
+          unit_amount: l.unitAmountCents,
+          product_data: {
+            name: l.name,
+            ...(l.description ? { description: l.description } : {}),
+            ...(publicImages && l.imageUrl ? { images: [new URL(l.imageUrl, env.siteUrl).toString()] } : {}),
           },
-        })),
-        shipping_address_collection: {
-          allowed_countries: [req.country as Stripe.Checkout.SessionCreateParams.ShippingAddressCollection.AllowedCountry],
         },
-        shipping_options: [
-          {
-            shipping_rate_data: {
-              type: "fixed_amount",
-              display_name: req.shipping.name,
-              fixed_amount: { amount: req.shipping.amountCents, currency },
-              ...(estimate ? { delivery_estimate: estimate } : {}),
-            },
-          },
-        ],
-        phone_number_collection: { enabled: true },
-        ...(discounts ? { discounts } : {}),
-        expires_at: Math.floor(req.expiresAt.getTime() / 1000),
-        success_url: req.successUrl,
-        cancel_url: req.cancelUrl,
-        locale: "auto",
+      })),
+      shipping_address_collection: {
+        allowed_countries: [req.country as Stripe.Checkout.SessionCreateParams.ShippingAddressCollection.AllowedCountry],
       },
-      { idempotencyKey: `checkout_${req.orderId}` },
-    );
+      shipping_options: [
+        {
+          shipping_rate_data: {
+            type: "fixed_amount",
+            display_name: req.shipping.name,
+            fixed_amount: { amount: req.shipping.amountCents, currency },
+            ...(estimate ? { delivery_estimate: estimate } : {}),
+          },
+        },
+      ],
+      phone_number_collection: { enabled: true },
+      ...(discounts ? { discounts } : {}),
+      expires_at: Math.floor(req.expiresAt.getTime() / 1000),
+      success_url: req.successUrl,
+      cancel_url: req.cancelUrl,
+      locale: "auto",
+    };
+    const branding = brandingParams(req.branding, publicImages);
+    let session: Stripe.Checkout.Session;
+    try {
+      session = await stripe.checkout.sessions.create({ ...params, ...branding }, { idempotencyKey: `checkout_${req.orderId}` });
+    } catch (err) {
+      // Branding is cosmetic: if Stripe rejects it (e.g. an unreachable logo), take the payment on the default page.
+      if (!(err instanceof Stripe.errors.StripeInvalidRequestError) || Object.keys(branding).length === 0) throw err;
+      console.warn("[stripe] checkout branding rejected, retrying without it:", err.message);
+      session = await stripe.checkout.sessions.create(params, { idempotencyKey: `checkout_${req.orderId}_plain` });
+    }
     if (!session.url) throw new Error("Stripe did not return a checkout URL");
     return { sessionId: session.id, url: session.url };
   },
