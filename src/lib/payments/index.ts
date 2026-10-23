@@ -17,6 +17,12 @@ export function getPaymentProvider(): PaymentProvider | null {
   return null;
 }
 
+/** Blends hex colour `b` into `a` by `amount` (0–1). */
+function mixHex(a: string, b: string, amount: number) {
+  const ch = (hex: string, i: number) => parseInt(hex.slice(1 + i * 2, 3 + i * 2), 16);
+  return "#" + [0, 1, 2].map((i) => Math.round(ch(a, i) * (1 - amount) + ch(b, i) * amount).toString(16).padStart(2, "0")).join("");
+}
+
 export async function startPaymentSession(pending: PendingOrder) {
   const provider = getPaymentProvider();
   if (!provider) {
@@ -54,8 +60,9 @@ export async function startPaymentSession(pending: PendingOrder) {
       expiresAt: new Date(pending.reservationExpiresAt.getTime() - 5 * 60_000),
       branding: {
         displayName: settings.brand.name,
-        buttonColor: settings.theme.primary,
-        backgroundColor: settings.theme.lavenderPale,
+        buttonColor: settings.theme.primaryDeep,
+        // Same deep lilac as the storefront page background
+        backgroundColor: mixHex(settings.theme.lavender, settings.theme.primary, 0.18),
         logoUrl: settings.brand.logoUrl ? new URL(settings.brand.logoUrl, env.siteUrl).toString() : null,
         iconUrl: `${env.siteUrl}/brand/checkout-icon.png`,
         submitMessage:
